@@ -7,15 +7,37 @@ import operator
 import numpy as np
 import sys
 from copy import deepcopy
+import math
+
+class Centre:
+    Number=0
+    x=0
+    y=0
+    z=0
+    def constr(self,xx=0,yy=0,zz=0,nNumber=0):
+        self.Number=nNumber
+        self.y=yy
+        self.x=xx
+        self.z=zz
+    def set_x(self,xx):
+        self.x=xx
+    def set_y(self,yy):
+        self.y=yy
+
+    def distance_colculate(self,Object):
+        return math.sqrt(math.pow((self.x-Object.get_sq()),2)+math.pow((self.y-Object.get_ar()),2))
 
 class Obj:
     Name=0
     Sqare=0
     Area=0
+    Point_max=[]
+    Point_min=[]
     def constr(self,N,S,A):
         self.Name=N
         self.Area= A
         self.Sqare = S
+    # def elongation_colculate(mass):
 
     def shw(self):
         print("Name :"+str(self.Name))
@@ -26,7 +48,10 @@ class Obj:
         self.Sqare=S
     def set_ar(self,A):
         self.Area=A
-
+    def get_sq(self):
+        return self.Sqare
+    def get_ar(self):
+        return self.Area
 
 sys.setrecursionlimit(15000000)
 core=[1,0,-1,
@@ -420,8 +445,15 @@ def kme ():
 
 
 
+Cent=Centre()
+Cent.set_x(1)
+Cent.set_y(2)
+Ob=Obj()
+Ob.set_ar(1)
+Ob.set_sq(4)
 
-
+K=Cent.distance_colculate(Ob)
+print (K)
 
 
 # --------------------------------------------------------------------------------------------------------------------------------------
@@ -461,6 +493,8 @@ def kme ():
 #
 # kek=drr(lab,width,height)
 #
+#
+#
 # ts=[]
 # for keks in kek:
 #     A=Obj()
@@ -481,9 +515,9 @@ def kme ():
 # zz=[[]]
 # z=dict(zip(list(kek.values()), list(lol.values())))
 # print (type(z))
-# for sova in z:
-#     zz.append([sova.keys(),sova.values])
-# print(zz)
+#
+#
+# print(lab)
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # plt.plot(list(kek.values()), list(lol.values()), 'ro')
@@ -496,71 +530,71 @@ def kme ():
 
 
 #===========================================================================================
-center_1 = np.array([9,1])
-center_2 = np.array([8,2])
-center_2 = np.array([8,2])
-# Generate random data and center it to the three centers
-data_1 = [[9,1],[8,2]]
-data_2 = [[7,1],[1,1]]
-data_3 = [[1,3],[2,2]]
-data_4 = [[2,1],[1,2]]
-
-# lsp=[]
-# for t in ts:
-#     lsp.append([t.Area,t.Sqare,1,1])
-det=np.array([[1,4,1],[3,4,1],[8,9,1],[4,1,1],[9,6,1],[6,8,1],[8,1,1],[9,1,1],[8,2,1]])
-
-
-# det=np.array(lsp)
-print(det)
-data = det
-plt.scatter(data[:,0], data[:,1], s=7)
-
-
-k = 9
-# Number of training data
-n = data.shape[0]
-# Number of features in the data
-c = data.shape[1]
-
-# Generate random centers, here we use sigma and mean to ensure it represent the whole data
-mean = np.mean(data, axis = 0)
-std = np.std(data, axis = 0)
-centers = np.random.randn(k,c)*std + mean
-
-# Plot the data and the centers generated as random
-plt.scatter(data[:,0], data[:,1], s=7)
-plt.scatter(centers[:,0], centers[:,1], marker='*', c='g', s=150)
-plt.show()
-
-centers_old = np.zeros((centers.shape))  # to store old centers
-centers_new = deepcopy(centers)  # Store new centers
-
-data.shape
-clusters = np.zeros(n)
-distances = np.zeros((n, k))
-
-error = np.linalg.norm(centers_new - centers_old)
-
-# When, after an update, the estimate of that center stays the same, exit loop
-while error != 0:
-    # Measure the distance to every center
-    for i in range(k):
-        distances[:, i] = np.linalg.norm(data - centers[i], axis=1)
-    # Assign all training data to closest center
-    clusters = np.argmin(distances, axis=1)
-
-    centers_old = deepcopy(centers_new)
-    # Calculate mean for every cluster and update the center
-    for i in range(k):
-        centers_new[i] = np.mean(data[clusters == i], axis=0)
-    error = np.linalg.norm(centers_new - centers_old)
-centers_new
-
-plt.scatter(data[:,0], data[:,1], s=7)
-plt.scatter(centers_new[:,0], centers_new[:,1], marker='*', c='g', s=150)
-plt.show()
-
+# center_1 = np.array([9,1])
+# center_2 = np.array([8,2])
+# center_2 = np.array([8,2])
+# # Generate random data and center it to the three centers
+# data_1 = [[9,1],[8,2]]
+# data_2 = [[7,1],[1,1]]
+# data_3 = [[1,3],[2,2]]
+# data_4 = [[2,1],[1,2]]
+#
+# # lsp=[]
+# # for t in ts:
+# #     lsp.append([t.Area,t.Sqare,1,1])
+# det=np.array([[1,4,1],[3,4,1],[8,9,1],[4,1,1],[9,6,1],[6,8,1],[8,1,1],[9,1,1],[8,2,1]])
+#
+#
+# # det=np.array(lsp)
+# print(det)
+# data = det
+# plt.scatter(data[:,0], data[:,1], s=7)
+#
+#
+# k = 3
+# # Number of training data
+# n = data.shape[0]
+# # Number of features in the data
+# c = data.shape[1]
+#
+# # Generate random centers, here we use sigma and mean to ensure it represent the whole data
+# mean = np.mean(data, axis = 0)
+# std = np.std(data, axis = 0)
+# centers = np.random.randn(k,c)*std + mean
+#
+# # Plot the data and the centers generated as random
+# plt.scatter(data[:,0], data[:,1], s=7)
+# plt.scatter(centers[:,0], centers[:,1], marker='*', c='g', s=150)
+# plt.show()
+#
+# centers_old = np.zeros((centers.shape))  # to store old centers
+# centers_new = deepcopy(centers)  # Store new centers
+#
+# data.shape
+# clusters = np.zeros(n)
+# distances = np.zeros((n, k))
+#
+# error = np.linalg.norm(centers_new - centers_old)
+#
+# # When, after an update, the estimate of that center stays the same, exit loop
+# while error != 0:
+#     # Measure the distance to every center
+#     for i in range(k):
+#         distances[:, i] = np.linalg.norm(data - centers[i], axis=1)
+#     # Assign all training data to closest center
+#     clusters = np.argmin(distances, axis=1)
+#
+#     centers_old = deepcopy(centers_new)
+#     # Calculate mean for every cluster and update the center
+#     for i in range(k):
+#         centers_new[i] = np.mean(data[clusters == i], axis=0)
+#     error = np.linalg.norm(centers_new - centers_old)
+# centers_new
+#
+# plt.scatter(data[:,0], data[:,1], s=7)
+# plt.scatter(centers_new[:,0], centers_new[:,1], marker='*', c='g', s=150)
+# plt.show()
+# print (centers_new)
 #=================================================================================================
 
 
