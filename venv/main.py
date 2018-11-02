@@ -554,6 +554,11 @@ Ob5=Obj()
 Ob5.set_ar(5)
 Ob5.set_sq(17)
 
+Ob6=Obj()
+Ob6.set_ar(4)
+Ob6.set_sq(18)
+
+
 
 ss=[]
 Cen1=Centre()
@@ -587,6 +592,8 @@ kk.append(Ob2)
 kk.append(Ob3)
 kk.append(Ob4)
 kk.append(Ob5)
+kk.append(Ob6)
+
 
 xs=[]
 ys=[]
