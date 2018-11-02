@@ -14,18 +14,39 @@ class Centre:
     x=0
     y=0
     z=0
+    __points_include=[]#<------------------------------------------------------------ вот это поле
     def constr(self,xx=0,yy=0,zz=0,nNumber=0):
         self.Number=nNumber
         self.y=yy
         self.x=xx
         self.z=zz
+    def add_p(self,P):
+        self.__points_include.append(P)
     def set_x(self,xx):
         self.x=xx
     def set_y(self,yy):
         self.y=yy
-
+    def set_Number(self,nn):
+        self.Number=nn
+    def print_incl(self):
+        print (self.__points_include)
     def distance_colculate(self,Object):
         return math.sqrt(math.pow(self.y-Object.get_sq(),2)+math.pow(self.x-Object.get_ar(),2))
+
+def adder_point(C,P):
+    C.add_p(P)
+
+def includer(Centres,Objects):
+    for point in Objects:
+        Centres
+        min = Centres[0].distance_colculate(point)
+        num=0
+        for centr in Centres:
+            distance=centr.distance_colculate(point)
+            if (distance<min):
+                min=distance
+                num=centr.Number
+        adder_point(Centres[num],point)#<----------------------------------------------------------------- вот я пытаюсь писать в разные объекты
 
 class Obj:
     Name=0
@@ -43,6 +64,9 @@ class Obj:
         print("Name :"+str(self.Name))
         print("Sq :" + str(self.Sqare))
         print("Area :" + str(self.Area))
+    def mass_centre(Objects):
+        return (sum(pt.Sqare for pt in Objects) / len(Objects),
+              sum(pt.Area for pt in Objects) / len(Objects))
 
     def set_sq(self,S):
         self.Sqare=S
@@ -444,7 +468,7 @@ def kme ():
 #     print(labels[i])
 
 
-
+kk=[]
 Cent=Centre()
 Cent.set_x(3)
 Cent.set_y(2)
@@ -452,9 +476,43 @@ Ob=Obj()
 Ob.set_ar(3)
 Ob.set_sq(7)
 
-K=Cent.distance_colculate(Ob)
-print (K)
+Ob1=Obj()
+Ob1.set_ar(7)
+Ob1.set_sq(7)
 
+Ob2=Obj()
+Ob2.set_ar(3)
+Ob2.set_sq(11)
+
+Ob3=Obj()
+Ob3.set_ar(7)
+Ob3.set_sq(11)
+
+ss=[]
+Cen1=Centre()
+Cen1.set_y(4)
+Cen1.set_x(5)
+Cen1.set_Number(0)
+
+
+Cen2=Centre()
+Cen2.set_y(13)
+Cen2.set_x(5)
+Cen2.set_Number(1)
+
+ss.append(Cen1)
+ss.append(Cen2)
+
+
+kk.append(Ob)
+kk.append(Ob1)
+kk.append(Ob2)
+kk.append(Ob3)
+
+K=includer(ss,kk)
+
+for s in ss :
+    s.print_incl()
 
 # --------------------------------------------------------------------------------------------------------------------------------------
 # image3 = Image.open("neg11.jpg")
