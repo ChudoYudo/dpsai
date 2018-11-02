@@ -9,12 +9,42 @@ import sys
 from copy import deepcopy
 import math
 
+
+
+def adder_point(C,P):
+    C.add_p(P)
+
+def includer(Centres,Objects):
+    for point in Objects:
+        Centres
+        min = Centres[0].distance_colculate(point)
+        num=0
+        for centr in Centres:
+            distance=centr.distance_colculate(point)
+            if (distance<min):
+                min=distance
+                num=centr.Number
+        adder_point(Centres[num],point)#<----------------------------------------------------------------- вот я пытаюсь писать в разные объекты
+
+
+
+sys.setrecursionlimit(15000000)
+core=[1,0,-1,
+      2,0,-2,
+      1,0,-1]
+
 class Centre:
     Number=0
     x=0
     y=0
     z=0
-    __points_include=[]#<------------------------------------------------------------ вот это поле
+    __points_include=list()
+    def __init__(self):
+        self.__points_include = []
+    def get_include_points(self):
+        return self.__points_include
+    def set_include_points(self,lis):
+        self.__points_include=lis
     def constr(self,xx=0,yy=0,zz=0,nNumber=0):
         self.Number=nNumber
         self.y=yy
@@ -33,20 +63,19 @@ class Centre:
     def distance_colculate(self,Object):
         return math.sqrt(math.pow(self.y-Object.get_sq(),2)+math.pow(self.x-Object.get_ar(),2))
 
-def adder_point(C,P):
-    C.add_p(P)
+    def get_centers_x(k):
+        ret = []
+        for point in k:
+            ll = []
+            ret.append(point.y)
+        return ret
 
-def includer(Centres,Objects):
-    for point in Objects:
-        Centres
-        min = Centres[0].distance_colculate(point)
-        num=0
-        for centr in Centres:
-            distance=centr.distance_colculate(point)
-            if (distance<min):
-                min=distance
-                num=centr.Number
-        adder_point(Centres[num],point)#<----------------------------------------------------------------- вот я пытаюсь писать в разные объекты
+    def get_centers_y(k):
+        ret = []
+        for point in k:
+            ll = []
+            ret.append(point.x)
+        return ret
 
 class Obj:
     Name=0
@@ -64,9 +93,14 @@ class Obj:
         print("Name :"+str(self.Name))
         print("Sq :" + str(self.Sqare))
         print("Area :" + str(self.Area))
+
     def mass_centre(Objects):
-        return (sum(pt.Sqare for pt in Objects) / len(Objects),
-              sum(pt.Area for pt in Objects) / len(Objects))
+        if (Objects!=0):
+            li=[]
+            li.append(sum(pt.Sqare for pt in Objects) / len(Objects))
+            li.append(sum(pt.Area for pt in Objects) / len(Objects))
+
+        return li
 
     def set_sq(self,S):
         self.Sqare=S
@@ -77,10 +111,19 @@ class Obj:
     def get_ar(self):
         return self.Area
 
-sys.setrecursionlimit(15000000)
-core=[1,0,-1,
-      2,0,-2,
-      1,0,-1]
+    def get_points_y(k):
+        ret = []
+        for point in k:
+            ll = []
+            ret.append(point.Area)
+        return ret
+
+    def get_points_x(k):
+        ret = []
+        for point in k:
+            ll = []
+            ret.append(point.Sqare)
+        return ret
 
 
 def show_plt(aa):
@@ -451,6 +494,19 @@ def kme ():
     centers_new
 
 
+
+def kmean(Centers,Points):
+    includer(Centers,Points)
+    for Centr in Centers:
+        list_of_points=Centr.get_include_points()
+        k=Obj.mass_centre(list_of_points)
+        Centr.set_x(k[1])
+        Centr.set_y(k[0])
+        Centr.set_include_points([])
+
+
+
+
 # mat_m=5
 # mat_n=5
 # kk=[1,2]
@@ -472,6 +528,8 @@ kk=[]
 Cent=Centre()
 Cent.set_x(3)
 Cent.set_y(2)
+
+
 Ob=Obj()
 Ob.set_ar(3)
 Ob.set_sq(7)
@@ -481,16 +539,25 @@ Ob1.set_ar(7)
 Ob1.set_sq(7)
 
 Ob2=Obj()
-Ob2.set_ar(3)
-Ob2.set_sq(11)
+Ob2.set_ar(7)
+Ob2.set_sq(12)
 
 Ob3=Obj()
-Ob3.set_ar(7)
-Ob3.set_sq(11)
+Ob3.set_ar(3)
+Ob3.set_sq(12)
+
+Ob4=Obj()
+Ob4.set_ar(4)
+Ob4.set_sq(15)
+
+Ob5=Obj()
+Ob5.set_ar(5)
+Ob5.set_sq(17)
+
 
 ss=[]
 Cen1=Centre()
-Cen1.set_y(4)
+Cen1.set_y(6)
 Cen1.set_x(5)
 Cen1.set_Number(0)
 
@@ -500,14 +567,62 @@ Cen2.set_y(13)
 Cen2.set_x(5)
 Cen2.set_Number(1)
 
+Cen3=Centre()
+Cen3.set_y(16)
+Cen3.set_x(5)
+Cen3.set_Number(2)
+
+
+
+
 ss.append(Cen1)
 ss.append(Cen2)
+ss.append(Cen3)
+
 
 
 kk.append(Ob)
 kk.append(Ob1)
 kk.append(Ob2)
 kk.append(Ob3)
+kk.append(Ob4)
+kk.append(Ob5)
+
+xs=[]
+ys=[]
+cxs= []
+cys=[]
+
+# for i in range(50):
+#     xs.append(random.random())
+#     ys.append(random.random())
+# for j in range(10):
+#     cxs.append(random.random())
+#     cys.append(random.random())
+
+xs=Obj.get_points_x(kk)
+ys=Obj.get_points_y(kk)
+
+cxs=Centre.get_centers_x(ss)
+cys=Centre.get_centers_y(ss)
+
+fig=plt.figure(figsize=(10,10))
+scater1=plt.scatter(xs,ys,c="red")
+scater1=plt.scatter(cxs,cys,c="green")
+plt.show()
+
+kmean(ss,kk)
+
+xs=Obj.get_points_x(kk)
+ys=Obj.get_points_y(kk)
+
+cxs=Centre.get_centers_x(ss)
+cys=Centre.get_centers_y(ss)
+
+fig=plt.figure(figsize=(10,10))
+scater1=plt.scatter(xs,ys,c="red")
+scater1=plt.scatter(cxs,cys,c="green")
+plt.show()
 
 K=includer(ss,kk)
 
