@@ -25,7 +25,7 @@ class Centre:
         self.y=yy
 
     def distance_colculate(self,Object):
-        return math.sqrt(math.pow((self.x-Object.get_sq()),2)+math.pow((self.y-Object.get_ar()),2))
+        return math.sqrt(math.pow(self.y-Object.get_sq(),2)+math.pow(self.x-Object.get_ar(),2))
 
 class Obj:
     Name=0
@@ -446,11 +446,11 @@ def kme ():
 
 
 Cent=Centre()
-Cent.set_x(1)
+Cent.set_x(3)
 Cent.set_y(2)
 Ob=Obj()
-Ob.set_ar(1)
-Ob.set_sq(4)
+Ob.set_ar(3)
+Ob.set_sq(7)
 
 K=Cent.distance_colculate(Ob)
 print (K)
